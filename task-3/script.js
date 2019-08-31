@@ -23,7 +23,7 @@ function calculateStar(DOMObject, numberOfBlades=2) {
     let r = Math.min(width-10, height-10)/2;
     let cx = width / 2;
     let cy = height / 2;
-    let separation = 180 / numberOfBlades;
+    let separation = 360 / (2 * numberOfBlades);
     let d = null;
     for(let i=0, m=0; i<360; i+=separation, m++) {
         let j = i * Math.PI / 180 - Math.PI / 2;
