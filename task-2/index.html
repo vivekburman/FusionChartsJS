@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+    </div>
+    <script>
+        function createSVG() {
+            const xlmns_svg = 'http://www.w3.org/2000/svg';
+            const width = 200;
+            const height = 200;
+            let container = document.getElementById("container");
+            let svg = document.createElementNS(xlmns_svg, 'svg');
+            container.appendChild(svg);
+            svg.setAttribute("width", width);
+            svg.setAttribute("height", height);
+
+            let path = document.createElementNS(xlmns_svg, 'path');
+            path.setAttribute("d", "M50 175 L100 25 L150 175 L25 75 L175 75 Z");
+            path.setAttribute("fill", "red");
+            path.setAttribute("stroke", "black");
+            path.setAttribute("stroke-width", "5");
+            svg.appendChild(path);
+        }
+        createSVG();
+    </script>
+</body>
+</html>
