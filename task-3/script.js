@@ -1,5 +1,5 @@
+"use strict";
 function createDOMNode() {
-    "use strict";
     const xlmns_svg = 'http://www.w3.org/2000/svg';
     let nodeName = arguments[0];
     let attrbutes = arguments[1];
@@ -14,9 +14,7 @@ function createDOMNode() {
     return node;
 }
 
-
-function calculateStar(DOMObject) {
-    "use strict";
+function calculateStar(DOMObject, numberOfBlades=2) {
     let parent = DOMObject.parentElement;
     let height = parent.clientHeight;
     let width = parent.clientWidth;
@@ -25,33 +23,29 @@ function calculateStar(DOMObject) {
     let r = Math.min(width-10, height-10)/2;
     let cx = width / 2;
     let cy = height / 2;
-    let outer_points = [];
-    let inner_points = [];
-    let separation = 72;
-    for(let i=0; i<360; i+=separation) {
+    let separation = 180 / numberOfBlades;
+    let d = null;
+    for(let i=0, m=0; i<360; i+=separation, m++) {
         let j = i * Math.PI / 180 - Math.PI / 2;
-        let x = cx + r * Math.cos(j);
-        let y = cy + r * Math.sin(j);
-        outer_points.push({x: x, y: y});
-        
-        // creating mid points
-        let shift = separation / 2 * Math.PI / 180;
-        x = cx + (r / 3) * Math.cos(j + shift);
-        y = cy + (r / 3) * Math.sin(j + shift);
-        inner_points.push({x: x, y: y });
-    }
-    let d = "M" + outer_points[0].x + "," + outer_points[0].y + " ";
-    let turn = 1;
-    for(let i = 0; i< 2*outer_points.length-1; i++) {
-        let j = Math.trunc(i/2);
-        if(turn === 1) {
-            d += "L" + inner_points[j].x + "," + inner_points[j].y + " ";
-            turn = 0;
+        let x = 0;
+        let y = 0; 
+        let x_displaced = r * Math.cos(j);
+        let y_displaced = r * Math.sin(j);
+        if(m%2 == 0) {
+            x = cx + x_displaced;
+            y = cy + y_displaced;
+        }
+        else{
+            x = cx + x_displaced / 3;
+            y = cy + y_displaced / 3;
+        }
+        if(m==0) {
+            d = "M";
         }
         else {
-            d += "L" + outer_points[j+1].x + "," + outer_points[j+1].y + " ";
-            turn = 1;
-        }
+            d += "L";
+        } 
+        d += x + "," + y + " ";   
     }
     d += "Z";
     DOMObject.setAttribute("d", d);
@@ -70,5 +64,5 @@ args = {
 let path = createDOMNode("path", args);
 container.appendChild(svg);
 svg.appendChild(path);
-calculateStar(path);
+calculateStar(path,5);
 
