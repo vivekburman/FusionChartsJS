@@ -27,16 +27,17 @@ function calculateStar(DOMObject) {
     let cy = height / 2;
     let outer_points = [];
     let inner_points = [];
-    for(let i=0; i<360; i+=72) {
-        let j = i * Math.PI / 180;
-        let x = cx + r * Math.cos(j-Math.PI/2);
-        let y = cy + r * Math.sin(j-Math.PI/2);
+    let separation = 72;
+    for(let i=0; i<360; i+=separation) {
+        let j = i * Math.PI / 180 - Math.PI / 2;
+        let x = cx + r * Math.cos(j);
+        let y = cy + r * Math.sin(j);
         outer_points.push({x: x, y: y});
         
         // creating mid points
-        let shift = 36 * Math.PI / 180;
-        x = cx + (r / 3) * Math.cos(j - Math.PI / 2 + shift);
-        y = cy + (r / 3) * Math.sin(j - Math.PI / 2 + shift);
+        let shift = separation / 2 * Math.PI / 180;
+        x = cx + (r / 3) * Math.cos(j + shift);
+        y = cy + (r / 3) * Math.sin(j + shift);
         inner_points.push({x: x, y: y });
     }
     let d = "M" + outer_points[0].x + "," + outer_points[0].y + " ";
@@ -67,8 +68,7 @@ args = {
     "fill": "rgb(255,0,255)",
 }
 let path = createDOMNode("path", args);
-svg.appendChild(path);
 container.appendChild(svg);
-
+svg.appendChild(path);
 calculateStar(path);
 
