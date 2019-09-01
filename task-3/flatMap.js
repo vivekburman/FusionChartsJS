@@ -1,8 +1,5 @@
 function flatMap(mapFn, array) {
     let result = map(mapFn, array);
-    result.forEach(element => {
-        console.log(element);
-    });
     return flat(1, result);
 }
 
