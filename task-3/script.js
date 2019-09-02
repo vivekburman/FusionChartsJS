@@ -14,13 +14,13 @@ function createDOMNode() {
     return node;
 }
 
-function calculateStar(DOMObject, numberOfBlades=2) {
+function calculateStar(DOMObject, numberOfBlades=5) {
     let parent = DOMObject.parentElement;
     let height = parent.clientHeight;
     let width = parent.clientWidth;
 
     // draw star
-    let r = Math.min(width-10, height-10)/2;
+    let r = Math.min(width, height)/2;
     let cx = width / 2;
     let cy = height / 2;
     let separation = 360 / (2 * numberOfBlades);
@@ -54,7 +54,7 @@ function calculateStar(DOMObject, numberOfBlades=2) {
 
 let args = {
     "width": "200px",
-    "height": "200px",
+    "height": "300px",
 }
 let container = document.getElementById("container");
 let svg = createDOMNode("svg", args);
