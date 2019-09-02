@@ -31,7 +31,11 @@ function calculateStar(DOMObject, numberOfBlades=5) {
         let y = 0; 
         let x_displaced = r * Math.cos(j);
         let y_displaced = r * Math.sin(j);
-        if(m%2 == 0) {
+        if(m===4 || m===6)  {
+            x = cx + x_displaced;
+            y = cy + r * Math.sin(j) * 1.1151;
+        }
+        else if(m%2 == 0) {
             x = cx + x_displaced;
             y = cy + y_displaced;
         }
@@ -53,14 +57,18 @@ function calculateStar(DOMObject, numberOfBlades=5) {
 
 
 let args = {
-    "width": "200px",
-    "height": "300px",
+    "width": "222px",
+    "height": "333px",
 }
+console.log(args);
 let container = document.getElementById("container");
 let svg = createDOMNode("svg", args);
 args = {
     "fill": "rgb(255,0,255)",
+    "stroke-width": "2",
+    "stroke": "black"
 }
+console.log(args);
 let path = createDOMNode("path", args);
 container.appendChild(svg);
 svg.appendChild(path);
